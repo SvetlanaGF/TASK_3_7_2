@@ -6,29 +6,6 @@ $password = '';
 $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Получение данных из формы
-    $order_id = $_POST['order_id'];
-    $tovar = $_POST['tovar'];
-
-    // Валидация данных
-    if (!empty($order_id) && !empty($tovar)) {
-        // Подготовка и выполнение запроса на вставку данных
-        $stmt = $conn->prepare("INSERT INTO ordersnew (order_id, tovar) VALUES (:order_id, :tovar)");
-        $stmt->bindParam(':order_id', $order_id);
-        $stmt->bindParam(':tovar', $tovar);
-
-        if ($stmt->execute()) {
-            echo "Заказ добавлен!";
-        } else {
-            echo "Ошибка отправки заказа.";
-        }
-    } else {
-        echo "All fields are required!";
-    }
-}
-
-
 // Проверяем, что запрос был отправлен методом POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Получаем данные из формы
